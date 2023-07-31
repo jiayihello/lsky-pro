@@ -1,7 +1,7 @@
 @if($_is_notice)
 
     <x-modal id="notice-modal">
-        <div class="markdown-body">
+        <div class="markdown-body" style="background-color: rgba(255, 255, 255, 0.0);">
             {!! (new Parsedown())->parse(\App\Utils::config(\App\Enums\ConfigKey::SiteNotice)) !!}
         </div>
         <div class="mt-4 w-full text-right">

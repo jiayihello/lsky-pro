@@ -4,12 +4,133 @@
     <div class="my-6 md:my-9">
         <p class="text-xl mb-2 text-gray-800 font-semibold">接口说明</p>
         <div class="space-y-4 bg-white p-3 rounded-md mb-10 shadow-custom">
-            <div>
+            
+<!--源文件代码  
+              <div>
                 <p class="text-lg text-gray-700 font-semibold">接口URL</p>
                 <x-code>{{ request()->getSchemeAndHttpHost() }}/api/v1</x-code>
+            </div>    -->
+
+<!--修改后   修改成动态获取协议头，满足http与https方式，源代码有bug-->
+<div>
+  <p class="text-lg text-gray-700 font-semibold">接口URL</p>
+  <x-code><span id="apiUrl"></span>/api/v1</x-code>
+</div>
+
+<script>
+  var protocol = window.location.protocol;
+  var host = window.location.host;
+  var apiUrl = protocol + "//" + host;
+
+  document.getElementById("apiUrl").textContent = apiUrl;
+</script>
+<!--修改后-->
+            <div>
+             <div>
+
+
+
+
+
+                <p class="text-lg text-gray-700 font-semibold">Token获取</p>
+                <script src="//lib.baomitu.com/jquery/1.12.4/jquery.min.js"></script>
+
+<!--源文件代码  
+                <form id="token" action="{{ request()->getSchemeAndHttpHost() }}/api/v1/tokens" method="POST">
+                    <div class="my-2 text-sm">
+                        <div class="form-group qqlogin" style="display: none;">
+                            <div class="input-group-addon">邮箱</div>
+                            <input type="email" id="email" name="email" value="{{ Auth::user()->email }}">
+                        </div>
+                        <div style="display: inline-flex;position: relative;">
+                            <div class="px-4 py-3 text-right sm:px-6" style="color: #555;background-color: #eee;border: 1px solid #ccc;">密码</div>
+                            <input type="password" id="password" name="password" placeholder="输入你的密码">
+                            <a href="javascript:;" class="button px-4 py-3 sm:px-6" style="color: #fff;background-color: #8abcd1;border-color: #d0dfe6;margin-left:10px;">
+                                <div>点击获取</div>
+                            </a>
+                        </div>
+                        <div class="list-group">
+                            <x-code>
+                                <span style="color:tomato;user-select: none;">token：</span><span id="tokenCode"></span>
+                            </x-code>
+                        </div>
+                </form>
+-->
+
+<!--修改后   修改成动态获取协议头，满足http与https方式，源代码有bug-->
+<form id="token" action="#" method="POST">
+    <div class="my-2 text-sm">
+        <div class="form-group qqlogin" style="display: none;">
+            <div class="input-group-addon">邮箱</div>
+            <input type="email" id="email" name="email" value="{{ Auth::user()->email }}">
+        </div>
+        <div style="display: inline-flex;position: relative;">
+            <div class="px-4 py-3 text-right sm:px-6" style="color: #555;background-color: #eee;border: 1px solid #ccc;">密码</div>
+            <input type="password" id="password" name="password" placeholder="输入你的密码">
+            <a href="javascript:;" class="button px-4 py-3 sm:px-6" style="color: #fff;background-color: #8abcd1;border-color: #d0dfe6;margin-left:10px;" onclick="getToken()">
+                <div>点击获取</div>
+            </a>
+        </div>
+        <div class="list-group">
+            <x-code>
+                <span style="color:tomato;user-select: none;">token：</span><span id="tokenCode"></span>
+            </x-code>
+        </div>
+    </div>
+</form>
+
+<script>
+    function getToken() {
+        var apiProtocol = window.location.protocol;
+        var apiHost = window.location.host;
+        var apiUrl = apiProtocol + "//" + apiHost + "/api/v1/tokens";
+        document.getElementById("token").action = apiUrl;
+
+        // Make the AJAX request to get the token as before
+        // ... (your existing AJAX code here)
+    }
+</script>
+<!--修改后-->
+
+
+                <script>
+                    $(document).ready(function() {
+                        $("#token .button").click(function() {
+                            var url = $("#token").attr("action");
+                            var email = $("#email").val();
+                            var password = $("#password").val();
+                            $.ajax({
+                                type: 'post',
+                                url: url,
+                                data: {
+                                    email: email,
+                                    password: password
+                                },
+                                success: function(data) {
+                                    if (data.status == true) {
+                                        $("#tokenCode").html('Bearer ' + data.data.token)
+                                    } else {
+                                        if (data.message == "password 不能为空。") {
+                                            $("#tokenCode").html("密码不能为空！")
+                                        } else if (data.message == "The email address or password is incorrect.") {
+                                            $("#tokenCode").html("请确认密码是否正确！")
+                                        }
+                                    }
+                                },
+                                error: function() {
+                                    $("#tokenCode").html("请求过于频繁，请稍后再试！")
+                                }
+                            });
+
+                        });
+                    });
+                </script>
             </div>
 
-            <div>
+
+
+
+
                 <p class="text-lg text-gray-700 font-semibold">验证方式</p>
                 <div class="my-2 text-sm bg-white rounded-md p-4 overflow-x-auto">
                     当前版本接口采用 「HTTP 基本验证」的方式验证授权，获取到 token 后，通过设置请求 header 标头来验证请求(Bearer Token)，例如：

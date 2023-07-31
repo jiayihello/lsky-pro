@@ -30,12 +30,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+// 默认开启反代HTTPS/不需要注释第34行代码
+\Illuminate\Support\Facades\URL::forceScheme('https');
         // 是否需要生成 env 文件
         if (! file_exists(base_path('.env'))) {
             file_put_contents(base_path('.env'), file_get_contents(base_path('.env.example')));
             // 生成 key
             Artisan::call('key:generate');
         }
+
 
         // 如果已经安装程序，初始化一些配置
         if (file_exists(base_path('installed.lock'))) {

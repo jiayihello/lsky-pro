@@ -25,22 +25,25 @@
              x-show="$store.modal.isOpen('{{ $id }}')"
              class="flex text-base text-left transform transition w-full md:inline-block md:max-w-2xl md:px-4 md:my-8 md:align-middle lg:max-w-4xl"
         >
-            <div class="w-full relative flex bg-white px-4 pt-14 pb-8 overflow-hidden shadow-lg sm:px-6 sm:pt-8 md:p-6 lg:p-8 md:rounded-sm">
-                <button type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-500 sm:top-4 sm:right-4 md:top-3 md:right-3 lg:top-4 lg:right-4" @click="$store.modal.close('{{ $id }}')">
-                    <span class="sr-only">Close</span>
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
 
-                <div class="flex items-center justify-center h-24 w-full" x-show="$store.modal.isLoading('{{ $id }}')">
-                    <x-loading-spin />
-                </div>
+<!--在原始的 bg-white 类名后添加了 bg-opacity-50 类名，以使背景半透明,公告-->
+            <div class="w-full relative flex bg-white bg-opacity-50 px-4 pt-14 pb-8 overflow-hidden shadow-lg sm:px-6 sm:pt-8 md:p-6 lg:p-8 md:rounded-sm">
+    <button type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-500 sm:top-4 sm:right-4 md:top-3 md:right-3 lg:top-4 lg:right-4" @click="$store.modal.close('{{ $id }}')">
+        <span class="sr-only">Close</span>
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
 
-                <div class="w-full" x-show="! $store.modal.isLoading('{{ $id }}')">
-                    {{ $slot ?? '' }}
-                </div>
-            </div>
+    <div class="flex items-center justify-center h-24 w-full" x-show="$store.modal.isLoading('{{ $id }}')">
+        <x-loading-spin />
+    </div>
+
+    <div class="w-full" x-show="! $store.modal.isLoading('{{ $id }}')">
+        {{ $slot ?? '' }}
+    </div>
+</div>
+<!--在原始的 bg-white 类名后添加了 bg-opacity-50 类名，以使背景半透明 公告-->
         </div>
     </div>
 </div>
