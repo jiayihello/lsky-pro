@@ -36,8 +36,8 @@
         <div class="mt-10 container mx-auto px-5 sm:px-10 md:px-10 lg:px-10 xl:px-10 2xl:px-60">
             <x-upload/>
         </div>
-        <footer class="absolute bottom-0 left-0 right-0 w-full bg-gray-200" style="background-color: rgba(255, 255, 255, 0);">
-    <p class="container mx-auto py-2 px-5 sm:px-10 md:px-10 lg:px-10 xl:px-10 2xl:px-60 text-gray-500 text-sm" style="background-color: rgba(255, 255, 255, 0);">
+        <footer class="absolute bottom-0 left-0 right-0 w-full bg-gray-200" style="background-color: rgba(255, 255, 255, 0.3);">
+    <p class="container mx-auto py-2 px-5 sm:px-10 md:px-10 lg:px-10 xl:px-10 2xl:px-60 text-gray-500 text-sm" style="background-color: rgba(255, 255, 255, 0.3);">
         <a href="https://nnbn.de/" target="_blank" rel="noreferrer"><?php echo e(\App\Utils::config(\App\Enums\ConfigKey::IcpNo)); ?></a> 请勿上传违反中国大陆和香港法律的图片，违者后果自负。
     </p>
 </footer>
